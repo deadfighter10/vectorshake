@@ -321,231 +321,231 @@
   },
   {
     "query": "Can you make the room brighter?",
-    "action": "1"
+    "label": "1"
   },
   {
     "query": "I need some quiet time.",
-    "action": "3"
+    "label": "3"
   },
   {
     "query": "Buy me a new book from the online store.",
-    "action": "4"
+    "label": "4"
   },
   {
     "query": "I've changed my mind about the order.",
-    "action": "5"
+    "label": "5"
   },
   {
     "query": "Get John on the line.",
-    "action": "6"
+    "label": "6"
   },
   {
     "query": "Hang up the phone.",
-    "action": "7"
+    "label": "7"
   },
   {
     "query": "Drop a message to my friend.",
-    "action": "8"
+    "label": "8"
   },
   {
     "query": "Put on some music.",
-    "action": "9"
+    "label": "9"
   },
   {
     "query": "That's enough music for now.",
-    "action": "10"
+    "label": "10"
   },
   {
     "query": "I'm ready to watch a movie.",
-    "action": "11"
+    "label": "11"
   },
   {
     "query": "I'm done watching TV.",
-    "action": "12"
+    "label": "12"
   },
   {
     "query": "Remind me of my tasks for tomorrow.",
-    "action": "13"
+    "label": "13"
   },
   {
     "query": "Schedule a meeting for next week.",
-    "action": "14"
+    "label": "14"
   },
   {
     "query": "Can we schedule a meeting?",
-    "action": "15"
+    "label": "15"
   },
   {
     "query": "It's getting dark in here.",
-    "action": "1"
+    "label": "1"
   },
   {
     "query": "Decrease the volume a bit.",
-    "action": "3"
+    "label": "3"
   },
   {
     "query": "Purchase a gift card online.",
-    "action": "4"
+    "label": "4"
   },
   {
     "query": "I need to talk to Sarah.",
-    "action": "6"
+    "label": "6"
   },
   {
     "query": "Stop the music playback.",
-    "action": "10"
+    "label": "10"
   },
   {
     "query": "I'm trying to read a book, but it's getting really dark in here. Can you do something about the lighting?",
-    "action": "1"
+    "label": "1"
   },
   {
     "query": "I'm having a headache and the loud music isn't helping. Could you please turn it down?",
-    "action": "3"
+    "label": "3"
   },
   {
     "query": "I need to buy a gift for my friend's birthday, which is tomorrow. Can you help me order something online?",
-    "action": "4"
+    "label": "4"
   },
   {
     "query": "I was going to buy a new phone, but I've changed my mind. Can you cancel the order?",
-    "action": "5"
+    "label": "5"
   },
   {
     "query": "I need to talk to John about the upcoming project. Can you get him on the phone?",
-    "action": "6"
+    "label": "6"
   },
   {
     "query": "I think we've discussed everything we needed to. Can you hang up the phone now?",
-    "action": "7"
+    "label": "7"
   },
   {
     "query": "I need to send a message to my colleague about the meeting tomorrow. Can you help me with that?",
-    "action": "8"
+    "label": "8"
   },
   {
     "query": "I'm feeling really stressed and music usually helps me relax. Can you put on some calming music?",
-    "action": "9"
+    "label": "9"
   },
   {
     "query": "I think I've had enough music for now. Can you stop the playback?",
-    "action": "10"
+    "label": "10"
   },
   {
     "query": "I'm ready to watch my favorite TV show. Can you turn on the TV?",
-    "action": "11"
+    "label": "11"
   },
   {
     "query": "I'm done watching TV for the day. Can you turn it off?",
-    "action": "12"
+    "label": "12"
   },
   {
     "query": "I have a lot of tasks to do tomorrow and I'm worried I'll forget something. Can you remind me of my tasks?",
-    "action": "13"
+    "label": "13"
   },
   {
     "query": "I need to schedule a meeting with my team for next week. Can you help me with that?",
-    "action": "14"
+    "label": "14"
   },
   {
     "query": "I need to discuss my project with my professor. Can we schedule a meeting?",
-    "action": "15"
+    "label": "15"
   },
   {
     "query": "It's getting really dark outside and I'm having trouble seeing. Can you turn on the lights?",
-    "action": "1"
+    "label": "1"
   },
   {
     "query": "The volume is a bit too loud for my liking. Can you decrease it a bit?",
-    "action": "3"
+    "label": "3"
   },
   {
     "query": "I need to buy a new laptop for work, but I don't have time to go to the store. Can you help me order one online?",
-    "action": "4"
+    "label": "4"
   },
   {
     "query": "I was going to call Sarah, but I think I'll send her an email instead. Can you help me with that?",
-    "action": "8"
+    "label": "8"
   },
   {
     "query": "I'm trying to focus on my work, but the music is distracting me. Can you stop the playback?",
-    "action": "10"
+    "label": "10"
   },
   {
     "query": "Lights on.",
-    "action": "1"
+    "label": "1"
   },
   {
     "query": "Too loud.",
-    "action": "3"
+    "label": "3"
   },
   {
     "query": "Buy online.",
-    "action": "4"
+    "label": "4"
   },
   {
     "query": "Cancel it.",
-    "action": "5"
+    "label": "5"
   },
   {
     "query": "Call John.",
-    "action": "6"
+    "label": "6"
   },
   {
     "query": "Hang up.",
-    "action": "7"
+    "label": "7"
   },
   {
     "query": "Send email.",
-    "action": "8"
+    "label": "8"
   },
   {
     "query": "Play music.",
-    "action": "9"
+    "label": "9"
   },
   {
     "query": "Stop music.",
-    "action": "10"
+    "label": "10"
   },
   {
     "query": "TV on.",
-    "action": "11"
+    "label": "11"
   },
   {
     "query": "TV off.",
-    "action": "12"
+    "label": "12"
   },
   {
     "query": "Remind me.",
-    "action": "13"
+    "label": "13"
   },
   {
     "query": "Schedule meeting.",
-    "action": "14"
+    "label": "14"
   },
   {
     "query": "Book appointment.",
-    "action": "15"
+    "label": "15"
   },
   {
     "query": "Dark room.",
-    "action": "1"
+    "label": "1"
   },
   {
     "query": "Volume down.",
-    "action": "3"
+    "label": "3"
   },
   {
     "query": "Order laptop.",
-    "action": "4"
+    "label": "4"
   },
   {
     "query": "Email Sarah.",
-    "action": "8"
+    "label": "8"
   },
   {
     "query": "Stop playback.",
-    "action": "10"
+    "label": "10"
   },
   {
     "query": "Could you open the door for me?",
