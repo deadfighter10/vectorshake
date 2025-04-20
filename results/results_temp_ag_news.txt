@@ -1,0 +1,6 @@
+[{'accuracy': 0.37236842105263157, 'f1': 0.33374476544490467, 'precision': 0.38205765849290885, 'recall': 0.37236842105263157}, {'accuracy': 0.6240789473684211, 'f1': 0.6218481163487177, 'precision': 0.6539817083956697, 'recall': 0.6240789473684211}]
+[0.425, 0.6644736842105263]
+[0.4581578947368421, 0.5632894736842106]
+[datetime.timedelta(seconds=15, microseconds=20706), datetime.timedelta(seconds=12, microseconds=545558)]
+[datetime.timedelta(seconds=5508, microseconds=182731), datetime.timedelta(seconds=5527, microseconds=444040)]
+[datetime.timedelta(seconds=319, microseconds=977191), datetime.timedelta(seconds=322, microseconds=36726)]

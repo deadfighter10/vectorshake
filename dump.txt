@@ -1,0 +1,304 @@
+class SelfAttention(nn.Module):
+    def __init__(self, embed_dim):
+        super(SelfAttention, self).__init__()
+        self.embed_dim = embed_dim
+        self.query = nn.Linear(embed_dim, embed_dim)
+        self.key = nn.Linear(embed_dim, embed_dim)
+        self.value = nn.Linear(embed_dim, embed_dim)
+
+    def forward(self, x):
+        Q = self.query(x)
+        K = self.key(x)
+        V = self.value(x)
+        attn_weights = F.softmax(torch.bmm(Q, K.transpose(1, 2)) / (self.embed_dim ** 0.5), dim=2)
+        return torch.bmm(attn_weights, V)
+
+
+class CommandClassifier(nn.Module):
+    def __init__(self, embed_dim, action_embeddings):
+        super(CommandClassifier, self).__init__()
+        self.attention = SelfAttention(embed_dim)
+        self.action_embeddings = action_embeddings  # Predefined action embeddings
+
+    def forward(self, x):
+        x = self.attention(x)
+        x = x.mean(dim=1)
+        similarities = F.cosine_similarity(x.unsqueeze(1), self.action_embeddings, dim=2)
+        return similarities
+
+exit()
+def get_embedding(sentence):
+    tokens = word_tokenize(sentence.lower())
+    embeds = [glove[token] for token in tokens if token in glove.stoi]
+    if embeds:
+        return torch.stack(embeds)
+    else:
+        return torch.zeros((1, glove.dim))
+
+
+# Define action embeddings
+actions = ["Switch off the lamp", "Turn on the computer"]
+action_embeddings = []
+for action in actions:
+    embeds = get_embedding(action)
+    action_embedding = embeds.mean(dim=0)
+    action_embeddings.append(action_embedding)
+action_embeddings = torch.stack(action_embeddings)  # Shape: [num_actions, embed_dim]
+action_embeddings = action_embeddings.unsqueeze(0)  # Shape: [1, num_actions, embed_dim]
+
+# Instantiate the model
+model = CommandClassifier(embed_dim=300, action_embeddings=action_embeddings)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+    "lambda_mix": 1.6281076485318855,
+    "lambda_contrast": 0.4599785597397365,
+    "lambda_consistency": 1.80246197755692,
+    "beta_a": 4.692543182393149,
+    "beta_b": 3.9779421378030184,
+    "epsilon": 0.034306866117584364,
+    "lr": 2.9642266559813832e-05,
+    "weight_decay": 0.06873735828381262
+}
+
+
+
+
+{
+    "best_hyperparameters": {
+        "lambda_mix": 1.6281076485318855,
+        "lambda_contrast": 0.4599785597397365,
+        "lambda_consistency": 1.80246197755692,
+        "beta_a": 4.692543182393149,
+        "beta_b": 3.9779421378030184,
+        "epsilon": 0.034306866117584364,
+        "lr": 2.9642266559813832e-05,
+        "weight_decay": 0.06873735828381262
+    },
+    "improved_model": {
+        "loss": 2.2119685712215653,
+        "accuracy": 0.5396240324364172,
+        "precision": 0.44562707146365943,
+        "recall": 0.3901261370466789,
+        "f1": 0.40179558073157123
+    },
+    "baseline_model": {
+        "loss": 3.6412967107573744,
+        "accuracy": 0.5309620346479912,
+        "precision": 0.4256856040512389,
+        "recall": 0.4122414732640429,
+        "f1": 0.4150218332435531
+    },
+    "dataset_info": {
+        "dataset_name": "GoEmotions",
+        "train_percent": 10,
+        "total_train_samples": 43410,
+        "used_train_samples": 4341,
+        "total_test_samples": 5426
+    },
+    "num_epochs": 20,
+    "optimizer": {
+        "lr": 2.9642266559813832e-05,
+        "weight_decay": 0.06873735828381262
+    }
+}
+
+{
+    "best_hyperparameters": {
+        "lambda_contrast": 3.8452098676124185,
+        "lambda_consistency": 2.5569883310613823,
+        "beta_a": 2.5489400894781276,
+        "beta_b": 1.0252850900111348,
+        "epsilon": 0.03053604386511942,
+        "lr": 4.074578116607861e-05,
+        "weight_decay": 0.09286144862303575,
+        "lambda_mix": 0.0
+    },
+    "improved_model": {
+        "loss": 1.2558818813048156,
+        "accuracy": 0.6330162626572569,
+        "precision": 0.30682129061224295,
+        "recall": 0.2298197439304569,
+        "f1": 0.23876185463635355
+    },
+    "baseline_model": {
+        "loss": 1.9761482117807163,
+        "accuracy": 0.609696225836146,
+        "precision": 0.29495358576097847,
+        "recall": 0.26727396351287447,
+        "f1": 0.2670001717253905
+    },
+    "dataset_info": {
+        "dataset_name": "SemEval-2018 Task 1 (Subtask5.english)",
+        "train_percent": 10,
+        "total_train_samples": 6838,
+        "used_train_samples": 683,
+        "total_test_samples": 3259
+    },
+    "num_epochs": 20,
+    "optimizer": {
+        "lr": 4.074578116607861e-05,
+        "weight_decay": 0.09286144862303575
+    }
+}
+
+
+
+
+
+{
+    "lambda_mix": 3.867885781785252,
+    "lambda_contrast": 1.6967078907692137,
+    "lambda_consistency": 2.9936770855797863,
+    "beta_a": 0.4088794131123386,
+    "beta_b": 1.502179455232675,
+    "epsilon": 0.0839091499505632,
+    "lr": 6.0616776838575025e-05,
+    "weight_decay": 0.009406368237442503
+}
+
+
+{"lambda_mix": 1.3408127952477917, "lambda_contrast": 2.2132130482973955, "lambda_consistency": 2.954185084956579, "lambda_reconstruct": 0.6643960578661915, "beta_a": 4.70195590347538, "beta_b": 3.301867701653078, "epsilon": 0.061608614824814, "lr": 1.5702716724500295e-05, "weight_decay": 0.06310197577021937, "DAC_strength": 0.26682611909378007}
+
+
+5V5 - optuna test 5 - trial 38 -> potentially better with more epoch
+{'lambda_mix': 2.365419365757406, 'lambda_contrast': 0.6377886344576372, 'la
+mbda_consistency': 3.443285240926902, 'lambda_reconstruct': 1.5545017161239365, 'beta_a': 0.3508367160035031, 'beta_b': 3.5241018809549973, 'epsilon': 0.2207387372599649
+, 'lr': 0.00022691410822927246, 'weight_decay': 0.09949515358847909, 'DAC_strength': 0.14565320506015444, 'acc_threshold': 0.008505214348110902, 'mixup_threshold': 0.058341946483494195, 'ema_alpha': 0.6772049945335308}.
+
+
+acc: 43.35
+
+S583993
+
+
+
+
+'''        # Training loop
+        for epoch in range(self.model):  # Short optimization run
+            stats = train_improved(model, train_loader, optimizer, device, params, epoch)
+            metrics = evaluate(model, test_loader, device)
+            print(f"Trial {trial.number} Metrics {metrics}")
+
+            stats["acc"] = metrics["accuracy"]
+            stats["mixup_loss"] = stats["mix_loss"]
+            wandb.log({
+                "train_loss": stats['total_loss'],
+                "epsilon": params['epsilon'],
+                "beta_a": params['beta_a'],
+                "beta_b": params['beta_b'],
+                "recon_loss": stats['recon_loss'],
+                "contrast_loss": stats['contrast_loss'],
+                "mix_loss": stats['mix_loss'],
+                "consistency_loss": stats['consistency_loss'],
+                "val_accuracy": metrics["accuracy"],
+                "val_f1": metrics['f1'],
+            })
+
+            # Dynamic curriculum update
+            params, ema_acc, ema_mixup_loss = dynamic_curriculum_ema(
+                epoch_stats=stats,
+                params=params,
+                prev_ema_acc=ema_acc,
+                prev_ema_mixup_loss=ema_mixup_loss,
+                ema_alpha=params["ema_alpha"],
+                strength=params["DAC_strength"],
+                acc_threshold=params["acc_threshold"],
+                mixup_threshold=params["mixup_threshold"]
+            )'''
+
+
+
+SetFit: 49.7894736842105%
+
+
+
+
+Ablation:
+Lambda mix 0: {'accuracy': 0.7802631578947369, 'f1': 0.7644340606922819, 'precision': 0.7881767882014931, 'recall': 0.7641111162933618}
+Lambda Contrast 0: {'accuracy': 0.7526315789473684, 'f1': 0.7173893257608854, 'precision': 0.7781071218607639, 'recall': 0.7267212596602395}
+Lambda Consistency 0: {'accuracy': 0.7342105263157894, 'f1': 0.7320975493380097, 'precision': 0.7692985659542556, 'recall': 0.7416287713532745}
+Lambda Reconstruct 0: {'accuracy': 0.7460526315789474, 'f1': 0.7345179271620108, 'precision': 0.7401785836782907, 'recall': 0.7335767340271876}
+epsilon 0: {'accuracy': 0.7289473684210527, 'f1': 0.7268923496542622, 'precision': 0.7636498298462208, 'recall': 0.7352697223811581}
+Without DAC: {'accuracy': 0.7578947368421053, 'f1': 0.7566426928409036, 'precision': 0.7762143905330388, 'recall': 0.7621272803399928}
+
+
+
+[{'accuracy': 0.05857142857142857, 'f1': 0.031855572150077636, 'precision': 0.03495876680702801, 'recall': 0.05049648506558444}, {'accuracy': 0.06142857142857143, 'f1': 0.049564326070013376, 'precision': 0.059044843892347744, 'recall': 0.06240985292828764}, {'accuracy': 0.08571428571428572, 'f1': 0.06702122214963047, 'precision': 0.07034831658868977, 'recall': 0.09052117473137963}, {'accuracy': 0.11571428571428571, 'f1': 0.0983556277740459, 'precision': 0.09881897954260077, 'recall': 0.1341375941883914}, {'accuracy': 0.1357142857142857, 'f1': 0.11281294309031036, 'precision': 0.11463208340872567, 'recall': 0.15127441154061172}, {'accuracy': 0.16857142857142857, 'f1': 0.13643504211832064, 'precision': 0.14410916970965534, 'recall': 0.22018570615454616}, {'accuracy': 0.19142857142857142, 'f1': 0.15719677260807569, 'precision': 0.15594822308220085, 'recall': 0.23863661702393527}, {'accuracy': 0.21857142857142858, 'f1': 0.19629963390648544, 'precision': 0.19460325713202917, 'recall': 0.27938183437430714}, {'accuracy': 0.21714285714285714, 'f1': 0.1980712094437334, 'precision': 0.2017836277810149, 'recall': 0.2792704627142591}, {'accuracy': 0.24, 'f1': 0.21748882799841773, 'precision': 0.2232583923209664, 'recall': 0.31530365531975135}]
+[0.04857142857142857, 0.09142857142857143, 0.11, 0.15571428571428572, 0.14, 0.20285714285714285, 0.23, 0.21857142857142858, 0.2557142857142857, 0.2914285714285714]
+[0.08571428571428572, 0.09714285714285714, 0.2957142857142857, 0.2957142857142857, 0.2642857142857143, 0.2957142857142857, 0.2257142857142857, 0.2957142857142857, 0.2957142857142857, 0.28]
+[datetime.timedelta(seconds=4, microseconds=773204), datetime.timedelta(seconds=8, microseconds=876235), datetime.timedelta(seconds=11, microseconds=739019), datetime.timedelta(seconds=15, microseconds=389559), datetime.timedelta(seconds=18, microseconds=960818), datetime.timedelta(seconds=21, microseconds=673282), datetime.timedelta(seconds=25, microseconds=919324), datetime.timedelta(seconds=28, microseconds=13694), datetime.timedelta(seconds=32, microseconds=738408), datetime.timedelta(seconds=37, microseconds=31718)]
+[datetime.timedelta(seconds=573, microseconds=153680), datetime.timedelta(seconds=689, microseconds=573437), datetime.timedelta(seconds=749, microseconds=781232), datetime.timedelta(seconds=1170, microseconds=650756), datetime.timedelta(seconds=793, microseconds=391588), datetime.timedelta(seconds=867, microseconds=223646), datetime.timedelta(seconds=925, microseconds=542106), datetime.timedelta(seconds=987, microseconds=62808), datetime.timedelta(seconds=1044, microseconds=168630), datetime.timedelta(seconds=1637, microseconds=757511)]
+[datetime.timedelta(seconds=30, microseconds=535129), datetime.timedelta(seconds=34, microseconds=949856), datetime.timedelta(seconds=40, microseconds=85300), datetime.timedelta(seconds=41, microseconds=59658), datetime.timedelta(seconds=45, microseconds=136145), datetime.timedelta(seconds=49, microseconds=195425), datetime.timedelta(seconds=53, microseconds=418597), datetime.timedelta(seconds=56, microseconds=30559), datetime.timedelta(seconds=60, microseconds=189196), datetime.timedelta(seconds=67, microseconds=60113)]
+
+
+ABLATION NEW:
+AG NEWS:
+DAC OFF:
+Lambda Mix 0: {'accuracy': 0.55, 'f1': 0.5254158755265264, 'precision': 0.6062948836615493, 'recall': 0.55}
+Lambda Contrast 0: {'accuracy': 0.54, 'f1': 0.5069457826810508, 'precision': 0.6318838393595436, 'recall': 0.54}
+Lambda Consistency 0: {'accuracy': 0.5971428571428572, 'f1': 0.6006765166025776, 'precision': 0.7466770330897969, 'recall': 0.5971428571428572}
+Lambda Reconstruct 0: {'accuracy': 0.5957142857142858, 'f1': 0.570090249530025, 'precision': 0.6242431601675592, 'recall': 0.5957142857142858}
+Epsilon 0: {'accuracy': 0.5885714285714285, 'f1': 0.597333901041464, 'precision': 0.7199295339367016, 'recall': 0.5885714285714286}
+Base (every parameter on, DAC off): {'accuracy': 0.6514285714285715, 'f1': 0.6620379544256851, 'precision': 0.727666266024716, 'recall': 0.6514285714285714}
+
+DAC ON:
+Lambda Mix 0: {'accuracy': 0.6785714285714286, 'f1': 0.6750674348269282, 'precision': 0.696262328999206, 'recall': 0.6785714285714286}
+Lambda Contrast 0: {'accuracy': 0.6628571428571428, 'f1': 0.6687918923726799, 'precision': 0.7116467709936873, 'recall': 0.6628571428571428}
+Lambda Consistency 0: {'accuracy': 0.5928571428571429, 'f1': 0.5865108749097666, 'precision': 0.7181853463751275, 'recall': 0.5928571428571429}
+Lambda Reconstruct 0: {'accuracy': 0.6571428571428571, 'f1': 0.6278716226849068, 'precision': 0.6374268444556839, 'recall': 0.6571428571428571}
+Epsilon 0: {'accuracy': 0.6971428571428572, 'f1': 0.7053301250196877, 'precision': 0.734593023255814, 'recall': 0.6971428571428571}
+Base (every parameter on, DAC on): {'accuracy': 0.7042857142857143, 'f1': 0.7101197695313867, 'precision': 0.737445043299108, 'recall': 0.7042857142857143}
+
+TREC-6:
+DAC OFF:
+Lambda Mix 0: {'accuracy': 0.582, 'f1': 0.516519014680959, 'precision': 0.6711075196812688, 'recall': 0.6287376994533866}
+Lambda Contrast 0: {'accuracy': 0.632, 'f1': 0.5794365987459055, 'precision': 0.679102038121646, 'recall': 0.6755424899064888}
+Lambda Consistency 0: {'accuracy': 0.558, 'f1': 0.4788591736699104, 'precision': 0.6088582870174009, 'recall': 0.6091167285220825}
+Lambda Reconstruct 0: {'accuracy': 0.636, 'f1': 0.5539498262875718, 'precision': 0.6623893060520872, 'recall': 0.6640574902708366}
+Epsilon 0: {'accuracy': 0.632, 'f1': 0.5545986896528871, 'precision': 0.6630741255922789, 'recall': 0.6590818427967103}
+Base (every parameter on, DAC off): {'accuracy': 0.642, 'f1': 0.584821302021612, 'precision': 0.6820770133193338, 'recall': 0.6778342386595969}
+
+DAC ON:
+Lambda Mix 0: {'accuracy': 0.724, 'f1': 0.6563594719601734, 'precision': 0.6912617882467078, 'recall': 0.7574581277937815}
+Lambda Contrast 0: {'accuracy': 0.708, 'f1': 0.6309703782148016, 'precision': 0.68328111946533, 'recall': 0.7212909695938721}
+Lambda Consistency 0: {'accuracy': 0.584, 'f1': 0.4804719971123528, 'precision': 0.6332079657899562, 'recall': 0.6049830028442915}
+Lambda Reconstruct 0: {'accuracy': 0.672, 'f1': 0.6157955188151029, 'precision': 0.6737499174999176, 'recall': 0.7046422549490196}
+Epsilon 0: {'accuracy': 0.624, 'f1': 0.5600084886968398, 'precision': 0.6420293762441492, 'recall': 0.6634639954993209}
+Base (every parameter on, DAC on): {'accuracy': 0.722, 'f1': 0.6496177581692019, 'precision': 0.7032083420795887, 'recall': 0.7472388644501579}
+
+
+GOEMOTIONS: K=1-5
+[{'accuracy': 0.056569006817763036, 'f1': 0.033297110751993146, 'precision': 0.048776505415427426, 'recall': 0.05334829853767181}, {'accuracy': 0.0652294085129906, 'f1': 0.0543424918445588, 'precision': 0.08460860235606028, 'recall': 0.07612760495905957}, {'accuracy': 0.0843928505620048, 'f1': 0.06815294512310313, 'precision': 0.08649135924362615, 'recall': 0.09923691622926394}, {'accuracy': 0.11921872120877096, 'f1': 0.09681763159822676, 'precision': 0.10810051914727443, 'recall': 0.13707786622881535}, {'accuracy': 0.14225170444075916, 'f1': 0.11616490732353811, 'precision': 0.1272190583398311, 'recall': 0.181840875395274}]
+[0.0456974387322646, 0.09028929426939378, 0.11350654136723788, 0.16694306246545051, 0.17191818684355997]
+[0.09194766906209692, 0.054173576561636266, 0.29592776856458447, 0.29592776856458447, 0.13893495485535287]
+[datetime.timedelta(seconds=10, microseconds=789029), datetime.timedelta(seconds=14, microseconds=357824), datetime.timedelta(seconds=18, microseconds=109910), datetime.timedelta(seconds=20, microseconds=647619), datetime.timedelta(seconds=24, microseconds=136123)]
+[datetime.timedelta(seconds=3904, microseconds=507163), datetime.timedelta(seconds=3979, microseconds=469836), datetime.timedelta(seconds=4003, microseconds=557899), datetime.timedelta(seconds=4066, microseconds=718468), datetime.timedelta(seconds=4152, microseconds=186140)]
+[datetime.timedelta(seconds=206, microseconds=330069), datetime.timedelta(seconds=210, microseconds=337403), datetime.timedelta(seconds=211, microseconds=630908), datetime.timedelta(seconds=213, microseconds=801478), datetime.timedelta(seconds=220, microseconds=50854)]
