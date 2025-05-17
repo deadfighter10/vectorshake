@@ -52,9 +52,11 @@ def research(name, column_mapping=None, start=1, end=10):
         f.write(str(vectorshake_time) + "\n")
 
 
-#research("go_emotions", column_mapping={"text": "text", "label": "labels"}, start=6, end=10)
-#research("ag_news", column_mapping={"text": "text", "label": "label"})
-#research("trec", column_mapping={"text": "text", "label": "coarse_label"})
+research("go_emotions", column_mapping={"text": "text", "label": "labels"}, start=6, end=10)
+research("ag_news", column_mapping={"text": "text", "label": "label"})
+research("trec", column_mapping={"text": "text", "label": "coarse_label"})
+
+#TODO Multi-run for each model, 5 SetFit and Vectorshake
 
 def plot_results(dataset_name):
     eval_globals = {

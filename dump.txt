@@ -302,3 +302,43 @@ GOEMOTIONS: K=1-5
 [datetime.timedelta(seconds=10, microseconds=789029), datetime.timedelta(seconds=14, microseconds=357824), datetime.timedelta(seconds=18, microseconds=109910), datetime.timedelta(seconds=20, microseconds=647619), datetime.timedelta(seconds=24, microseconds=136123)]
 [datetime.timedelta(seconds=3904, microseconds=507163), datetime.timedelta(seconds=3979, microseconds=469836), datetime.timedelta(seconds=4003, microseconds=557899), datetime.timedelta(seconds=4066, microseconds=718468), datetime.timedelta(seconds=4152, microseconds=186140)]
 [datetime.timedelta(seconds=206, microseconds=330069), datetime.timedelta(seconds=210, microseconds=337403), datetime.timedelta(seconds=211, microseconds=630908), datetime.timedelta(seconds=213, microseconds=801478), datetime.timedelta(seconds=220, microseconds=50854)]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OLD DATA:
+AG NEWS:
+[{'accuracy': 0.36857142857142855, 'f1': 0.3345742514208201, 'precision': 0.3802422210800638, 'recall': 0.36857142857142855}, {'accuracy': 0.6242857142857143, 'f1': 0.6233559658679632, 'precision': 0.6563499997117924, 'recall': 0.6242857142857143}, {'accuracy': 0.6628571428571428, 'f1': 0.6687424265065709, 'precision': 0.6866773205255904, 'recall': 0.6628571428571428}, {'accuracy': 0.6814285714285714, 'f1': 0.6784961188247637, 'precision': 0.7029145264286999, 'recall': 0.6814285714285715}, {'accuracy': 0.7685714285714286, 'f1': 0.7691504211270749, 'precision': 0.770912856599828, 'recall': 0.7685714285714286}, {'accuracy': 0.7871428571428571, 'f1': 0.7876992273512322, 'precision': 0.7901086088693998, 'recall': 0.7871428571428571}, {'accuracy': 0.7957142857142857, 'f1': 0.7965045362107821, 'precision': 0.7988021568219065, 'recall': 0.7957142857142857}, {'accuracy': 0.8014285714285714, 'f1': 0.8011588173665769, 'precision': 0.8018763721605784, 'recall': 0.8014285714285714}, {'accuracy': 0.8042857142857143, 'f1': 0.8023741133025151, 'precision': 0.8049491119991223, 'recall': 0.8042857142857143}, {'accuracy': 0.81, 'f1': 0.8087865551872286, 'precision': 0.8090278456552975, 'recall': 0.8099999999999999}]
+[0.46, 0.6714285714285714, 0.69, 0.7671428571428571, 0.6842857142857143, 0.7757142857142857, 0.7757142857142857, 0.7928571428571428, 0.7571428571428571, 0.7542857142857143]
+
+TREC-6:
+[{'accuracy': 0.3, 'f1': 0.303605150486798, 'precision': 0.3601188166290726, 'recall': 0.4235252229502155}, {'accuracy': 0.452, 'f1': 0.4130495626735919, 'precision': 0.5608299790318095, 'recall': 0.4997984082292741}, {'accuracy': 0.52, 'f1': 0.4988966129339542, 'precision': 0.5788102792053264, 'recall': 0.496968046603613}, {'accuracy': 0.572, 'f1': 0.5261859508696727, 'precision': 0.5878781250944604, 'recall': 0.6157565591402664}, {'accuracy': 0.612, 'f1': 0.5751072915287817, 'precision': 0.6245506282738377, 'recall': 0.6562375704176014}, {'accuracy': 0.65, 'f1': 0.594782362494046, 'precision': 0.6206866414739344, 'recall': 0.6818904625307253}, {'accuracy': 0.674, 'f1': 0.6297248828275631, 'precision': 0.6491777941377094, 'recall': 0.7061751667760799}, {'accuracy': 0.686, 'f1': 0.6539193294364806, 'precision': 0.6688205897375785, 'recall': 0.7360303117232724}, {'accuracy': 0.74, 'f1': 0.6948776232079705, 'precision': 0.7004360396919616, 'recall': 0.7597079053529843}, {'accuracy': 0.74, 'f1': 0.6935776196667817, 'precision': 0.734489261347814, 'recall': 0.7628395576653545}]
+[0.406, 0.636, 0.676, 0.74, 0.848, 0.81, 0.82, 0.846, 0.776, 0.812]
+
+GO EMOTIONS:
+

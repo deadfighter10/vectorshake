@@ -281,10 +281,10 @@ class Trainer:
 
             # Evaluate on validation set
             self.inside_eval = True
+            #TODO Val metrics -> Train metrics
             val_metrics = self.evaluate()
             self.inside_eval = False
-            val_acc = val_metrics['accuracy']
-            train_stats["acc"] = val_acc
+            train_stats["acc"] = val_metrics['accuracy']
             train_stats["mixup_loss"] = train_stats["mix_loss"]
 
             # Dynamic curriculum update
@@ -342,7 +342,7 @@ class Trainer:
         return (latent + self.args.epsilon * latent.grad.sign()).detach()
 
     def train_improved(self, epoch):
-        self.set_seed()
+        #self.set_seed()
         self.model.train()
         total_loss = 0
         ce_loss_total = 0
@@ -419,6 +419,8 @@ class Trainer:
             contrast_loss_total += cos_loss.item()
             mix_loss_total += loss_mix.item()
             consistency_loss_total += loss_consistency.item()
+
+            #TODO Train accuracy calc
 
             # Print batch statistics
             if batch_idx % 200 == 0:

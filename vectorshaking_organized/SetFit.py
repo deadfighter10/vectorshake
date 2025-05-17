@@ -100,7 +100,8 @@ def train_setfit(dataset, epochs, seed, K_class=None, dataset_percentage=None, c
         train_dataset=train_ds_subset,
         eval_dataset=test_ds,
         metric="accuracy",
-    )
+    ) #TODO SetFit trainer.py 688 line batching the prediction, use little chunks
+    #TODO Rewrite paper: prediction batching, original library overwritten, eval is not changed!
 
     # Train the model
     print("Starting training...")
