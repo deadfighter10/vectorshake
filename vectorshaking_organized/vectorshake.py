@@ -282,9 +282,9 @@ class Trainer:
             # Evaluate on validation set
             self.inside_eval = True
             #TODO Val metrics -> Train metrics
-            val_metrics = self.evaluate()
+            val_metrics = train_stats
             self.inside_eval = False
-            train_stats["acc"] = val_metrics['accuracy']
+            train_stats["acc"] = val_metrics["stats"]['accuracy']
             train_stats["mixup_loss"] = train_stats["mix_loss"]
 
             # Dynamic curriculum update
@@ -313,7 +313,31 @@ class Trainer:
                     attention_mask=batch["attention_mask"].to(self.device))
                 preds.extend(torch.argmax(outputs.logits, dim=1).cpu().numpy())
                 labels.extend(batch["label"].numpy())
-        if not self.inside_eval:
+        if not self.inside_eval and False:
+            self.console.print(f"[bold green]Evaluation:\n\nAccuracy: {accuracy_score(labels, preds):.4f}\n"
+                                f"F1: {f1_score(labels, preds, average='macro'):.4f}\n"
+                                f"Precision: {precision_score(labels, preds, average='macro'):.4f}\n"
+                                f"Recall: {recall_score(labels, preds, average='macro'):.4f}"
+        )
+        return {
+            "accuracy": accuracy_score(labels, preds),
+            "f1": f1_score(labels, preds, average="macro"),
+            "precision": precision_score(labels, preds, average="macro"),
+            "recall": recall_score(labels, preds, average="macro")
+        }
+
+    def train_evaluate(self):
+        self.model.eval()
+        self.set_seed()
+        preds, labels = [], []
+        with torch.no_grad():
+            for batch in self.train_loader:
+                outputs = self.model(
+                    input_ids=batch["input_ids"].to(self.device),
+                    attention_mask=batch["attention_mask"].to(self.device))
+                preds.extend(torch.argmax(outputs.logits, dim=1).cpu().numpy())
+                labels.extend(batch["label"].numpy())
+        if not self.inside_eval and False:
             self.console.print(f"[bold green]Evaluation:\n\nAccuracy: {accuracy_score(labels, preds):.4f}\n"
                                 f"F1: {f1_score(labels, preds, average='macro'):.4f}\n"
                                 f"Precision: {precision_score(labels, preds, average='macro'):.4f}\n"
@@ -350,6 +374,7 @@ class Trainer:
         contrast_loss_total = 0
         mix_loss_total = 0
         consistency_loss_total = 0
+        train_eval = None
 
         for batch_idx, batch in enumerate(self.train_loader):
             input_ids = batch["input_ids"].to(self.device)
@@ -421,6 +446,7 @@ class Trainer:
             consistency_loss_total += loss_consistency.item()
 
             #TODO Train accuracy calc
+            train_eval = self.train_evaluate()
 
             # Print batch statistics
             if batch_idx % 200 == 0:
@@ -441,7 +467,8 @@ class Trainer:
             "recon_loss": recon_loss_total / len(self.train_loader),
             "contrast_loss": contrast_loss_total / len(self.train_loader),
             "mix_loss": mix_loss_total / len(self.train_loader),
-            "consistency_loss": consistency_loss_total / len(self.train_loader)
+            "consistency_loss": consistency_loss_total / len(self.train_loader),
+            "stats": train_eval,
         }
 
     def dynamic_curriculum_ema(
@@ -539,9 +566,9 @@ class Trainer:
         self.set_seed()
         db = optuna.storages.RDBStorage("sqlite:///vectorshake_optim_data.db")
         if self.dataset_percentage is not None:
-            study_name = f"ALFA001_{self.dataset_name}_{self.dataset_percentage}_{self.epochs}_{self.seed}"
+            study_name = f"ALFA001_{self.dataset_name}_{self.dataset_percentage}_{self.epochs}_{self.seed}_NEW"
         else:
-            study_name = f"ALFA001_{self.dataset_name}_{self.K_class}_{self.epochs}_{self.seed}"
+            study_name = f"ALFA001_{self.dataset_name}_{self.K_class}_{self.epochs}_{self.seed}_NEW"
         study = optuna.create_study(study_name=study_name, direction="maximize", storage=db, load_if_exists=True)
         study.optimize(self.objective, n_trials=trials)
         self.console.print(f"[bold green]Best trial: {study.best_trial.number} with value: {study.best_trial.value}[/bold green]")
@@ -601,9 +628,9 @@ class Trainer:
         db = optuna.storages.RDBStorage("sqlite:///vectorshake_optim_data.db")
         self.set_seed()
         if self.dataset_percentage is not None:
-            study_name = f"ALFA001_{self.dataset_name}_{self.dataset_percentage}_{self.epochs}_{self.seed}"
+            study_name = f"ALFA001_{self.dataset_name}_{self.dataset_percentage}_{self.epochs}_{self.seed}_NEW"
         else:
-            study_name = f"ALFA001_{self.dataset_name}_{self.K_class}_{self.epochs}_{self.seed}"
+            study_name = f"ALFA001_{self.dataset_name}_{self.K_class}_{self.epochs}_{self.seed}_NEW"
         try:
             study = optuna.load_study(study_name=study_name, storage=db)
             best_trial = study.best_trial
